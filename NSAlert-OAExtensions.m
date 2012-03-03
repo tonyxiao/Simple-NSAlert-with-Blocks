@@ -62,6 +62,27 @@
     [runner release];
 }
 
++ (NSAlert *)alertWithMessageText:(NSString *)message defaultButton:(NSString *)defaultButton alternateButton:(NSString *)alternateButton otherButton:(NSString *)otherButton icon:(NSImage *)icon informativeTextWithFormat:(NSString *)format, ...
+{
+    NSString *informationalText = @"";
+    if (format) {
+        va_list args;
+        va_start(args, format);
+        informationalText = [[NSString alloc] initWithFormat:format arguments:args];
+        va_end(args);
+    }
+    NSAlert *alert = [NSAlert alertWithMessageText:message
+                                     defaultButton:defaultButton
+                                   alternateButton:alternateButton
+                                       otherButton:otherButton
+                         informativeTextWithFormat:informationalText];
+    if (icon)
+        [alert setIcon:icon];
+    
+    [informationalText release];
+    return alert;
+}
+
 @end
 
 
